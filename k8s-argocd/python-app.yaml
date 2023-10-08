@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-app
+  labels:
+    app: python-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-app
+  template:
+    metadata:
+      labels:
+        app: python-app
+    spec:
+      containers:
+      - name: python-app
+        image: marcinkujawski/python-api:1.0
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: python-app-svc
+  labels:
+    app: python-app
+spec:
+  ports:
+    - port: 8080
+      nodePort: 31080
+  selector:
+    app: python-app
+  type: NodePort
