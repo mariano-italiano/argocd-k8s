@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mymusicstats-deployment
+  labels:
+    app: mymusicstats
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mymusicstats
+  template:
+    metadata:
+      labels:
+        app: mymusicstats
+    spec:
+      containers:
+      - name: mymusicstats
+        image: shashankssriva/mymusicstats-arm64:1.0.2
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mymusicstats
+  labels:
+    app: mymusicstats
+spec:
+  ports:
+    - port: 80
+      nodePort: 31080
+  selector:
+    app: mymusicstats
+  type: NodePort
