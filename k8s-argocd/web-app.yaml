@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: web1-app
+  name: web-app
   labels:
-    name: nginx
+    name: web-app
 spec:
   replicas: 3
   selector:
     matchLabels:
-      name: nginx
+      name: web-app
   template:
     metadata:
       labels:
-        name: nginx
+        name: web-app
     spec:
       containers:
       - name: nginx
@@ -24,9 +24,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: web1-svc
+  name: web-app-svc
   labels:
-    name: nginx
+    name: web-app
 spec:
   type: NodePort
   ports:
@@ -34,4 +34,4 @@ spec:
       nodePort: 30080
       name: http
   selector:
-    name: nginx
+    name: web-app
